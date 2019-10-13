@@ -1,7 +1,8 @@
 import React, {useState} from 'react'
+import {connect} from 'react-redux'
 import fire, {fireDb} from '../firebase'
 
-const AddChore = props => {
+const AddChore = ({ chores }) => {
   const [chore, setChore] = useState('Enter a new chore')
 
   const handleSubmit = event => {
@@ -23,4 +24,10 @@ const AddChore = props => {
   )
 }
 
-export default AddChore
+const mapStateToProps = state => {
+  return {
+    chores: state.chores,
+  }
+}
+
+export default connect(mapStateToProps, null)(AddChore)

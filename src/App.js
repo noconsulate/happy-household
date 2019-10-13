@@ -1,8 +1,17 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux'
+
+import { initChores } from './reducers/choreReducer'
 import AddChore from './components/AddChore'
 import ChoreList from './components/ChoreList'
 
-function App() {
+import Redoo from './components/Redoo'
+
+function App(props) {
+
+  useEffect(() => {
+    props.initChores()
+  }, [])
 
   return (
     <div>
@@ -13,4 +22,15 @@ function App() {
   );
 }
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    chores: state.chores
+  }
+}
+
+const mapToDispatch = {
+  initChores
+}
+
+
+export default connect(mapStateToProps, mapToDispatch)(App)

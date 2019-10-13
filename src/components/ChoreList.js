@@ -13,7 +13,6 @@ const ChoreList = (props) => {
           item.key = child.key
           array.push(item)
         })
-        console.log(array)
         setChores(array)
       })
   }, [])
