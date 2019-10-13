@@ -1,16 +1,18 @@
 import firebase from 'firebase'
 
 var firebaseConfig = {
-  apiKey: "AIzaSyBmQ2dG6-KuKKHP7iLSzbWOIS4ZJRDimW8",
-  authDomain: "database-example-1a740.firebaseapp.com",
-  databaseURL: "https://database-example-1a740.firebaseio.com",
-  projectId: "database-example-1a740",
-  storageBucket: "database-example-1a740.appspot.com",
-  messagingSenderId: "46272556218",
-  appId: "1:46272556218:web:4b9444ecd8180d8e426683",
-  measurementId: "G-ELJ2X47FXC"
+  apiKey: "AIzaSyC4JxWZ9K7x5qmgQm91Eili6f4UhyOrISI",
+  authDomain: "happy-household.firebaseapp.com",
+  databaseURL: "https://happy-household.firebaseio.com",
+  projectId: "happy-household",
+  storageBucket: "happy-household.appspot.com",
+  messagingSenderId: "839235197768",
+  appId: "1:839235197768:web:62b9c47f5880cbfa16717d"
+
 };
 
 const fire = firebase.initializeApp(firebaseConfig)
+
+export const fireDb = firebase.database()
 
 export default fire

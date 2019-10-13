@@ -1,12 +1,14 @@
-import React from 'react';
-import fire from './firebase'
-
-console.log(fire.database())
+import React, { useState, useEffect } from 'react';
+import AddChore from './components/AddChore'
+import ChoreList from './components/ChoreList'
 
 function App() {
+
   return (
     <div>
-      <h2>Happy Households</h2>
+      <h1>Happy Household</h1>
+      <AddChore />
+      <ChoreList />
     </div>
   );
 }
