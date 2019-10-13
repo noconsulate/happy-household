@@ -5,7 +5,7 @@ const ChoreList = (props) => {
   const [chores, setChores] = useState([])
 
   useEffect(() => {
-    fireDb.ref('chorez').once('value')
+    fireDb.ref('chores').once('value')
       .then(snapshot => {
         let array = []
         snapshot.forEach(child => {

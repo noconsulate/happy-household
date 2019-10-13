@@ -6,7 +6,7 @@ const AddChore = props => {
 
   const handleSubmit = event => {
     event.preventDefault()
-    fireDb.ref('chorez/').push({
+    fireDb.ref('chores/').push({
       chore
     }).then(response => console.log(response))
     .catch(exception => console.log(exception))
