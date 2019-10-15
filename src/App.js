@@ -5,8 +5,6 @@ import { initChores } from './reducers/choreReducer'
 import AddChore from './components/AddChore'
 import ChoreList from './components/ChoreList'
 
-import Redoo from './components/Redoo'
-
 function App(props) {
 
   useEffect(() => {
@@ -31,6 +29,5 @@ const mapStateToProps = (state) => {
 const mapToDispatch = {
   initChores
 }
-
 
 export default connect(mapStateToProps, mapToDispatch)(App)

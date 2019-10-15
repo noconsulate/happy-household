@@ -1,4 +1,4 @@
-import {fireDb} from '../firebase'
+import { fireDb } from '../firebase'
 
 export const initChores = () => {
   return async dispatch => {
@@ -6,8 +6,10 @@ export const initChores = () => {
     let arr = []
     const snapshot = await fireDb.ref('chores/').once('value')
     snapshot.forEach(child => {
-      let item = child.val()
-      item.key = child.key
+      const item = {
+        chore: child.val().chore,
+        key: child.key
+      }
       arr.push(item)
     })
     dispatch({
@@ -17,29 +19,32 @@ export const initChores = () => {
   }
 }
 
-export const createChore = chore => {
+export const createChore = (chore, key) => {
   return async dispatch => {
-    const response = await fireDb.ref('chores/').push({chore})
-    const newChore = {
+    console.log('createChore action')
+    const item = {
       chore: chore,
-      key: response.key
+      key: key
     }
-    dispatch({
+    dispatch ({
       type: 'NEW_CHORE',
-      data: newChore
+      data: item
     })
   }
 }
 
- const choreReducer = (state = [], action) => {
-   switch (action.type) {
+const choreReducer = (state = [], action) => {
+  switch (action.type) {
     case 'INIT_CHORES':
+      console.log(action.data)
       return action.data
     case 'NEW_CHORE':
+      console.log(action.data)
       return state.concat(action.data)
     default:
-        return state
-   }
- }
+      console.log('default')
+      return state
+  }
+}
 
- export default choreReducer
+export default choreReducer

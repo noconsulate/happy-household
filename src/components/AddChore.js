@@ -1,15 +1,18 @@
 import React, {useState} from 'react'
 import {connect} from 'react-redux'
 import fire, {fireDb} from '../firebase'
+import {createChore} from '../reducers/choreReducer'
 
-const AddChore = ({ chores }) => {
+const AddChore = ({ chores, createChore }) => {
   const [chore, setChore] = useState('Enter a new chore')
 
   const handleSubmit = event => {
     event.preventDefault()
     fireDb.ref('chores/').push({
       chore
-    }).then(response => console.log(response))
+    }).then(res => {
+      createChore(chore, res.key)
+    })
     .catch(exception => console.log(exception))
     setChore('Enter a new chore')
   }
@@ -24,10 +27,4 @@ const AddChore = ({ chores }) => {
   )
 }
 
-const mapStateToProps = state => {
-  return {
-    chores: state.chores,
-  }
-}
-
-export default connect(mapStateToProps, null)(AddChore)
+export default connect(null, {createChore})(AddChore)
