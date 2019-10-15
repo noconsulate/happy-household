@@ -1,21 +1,40 @@
 import React, {useState, useEffect} from 'react'
+import { connect } from 'react-redux'
 import {fireDb} from '../firebase'
 
-const ChoreList = (props) => {
-  const [chores, setChores] = useState([])
+const ChoreList = ({chores}) => {
+  
+  let choresToMap = []
 
   useEffect(() => {
-    fireDb.ref('chores').once('value')
-      .then(snapshot => {
-        let array = []
-        snapshot.forEach(child => {
-          let item = child.val()
-          item.key = child.key
-          array.push(item)
-        })
-        setChores(array)
+    console.log(chores)
+    chores.map(chore => {
+      choresToMap.concat({
+        chore: chore.chore,
+        key: chore.key,
+        edit: false
       })
+    })
+
+    console.log(choresToMap)
   }, [])
+
+  const handleEditClick = event => {
+    event.preventDefault()
+    console.log('handleEditClick')
+  }
+
+  const rows = () => {
+    return (
+      <ul>
+        {chores.map(chore => 
+          <li key={chore.key} onClick={handleEditClick}>
+            {chore.chore}
+          </li>  
+        )}
+      </ul>
+    )
+  }
 
   if (chores === undefined || chores === []) {
     return null
@@ -24,14 +43,15 @@ const ChoreList = (props) => {
   return (
     <div>
       <h3>Chores that need doing</h3>
-      <ul>
-        {chores.map(chore =>
-          <li key={chore.key}>{chore.chore}</li>
-        ) }
-      </ul>
+      {rows()}
     </div>
   )
-
 }
 
-export default ChoreList
+const mapStateToProps = state => {
+  return {
+    chores: state.chores
+  }
+}
+
+export default connect(mapStateToProps, null)(ChoreList)
