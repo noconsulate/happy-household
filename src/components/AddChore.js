@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import {connect} from 'react-redux'
+import {Button, Input} from '@material-ui/core'
 import {fireDb} from '../firebase'
 import {createChore} from '../reducers/choreReducer'
 
@@ -19,9 +20,10 @@ const AddChore = ({ chores, createChore }) => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <input value={chore} onChange={({ target }) => setChore(target.value)} />
+        <Input value={chore} 
+        onChange={({ target }) => setChore(target.value)} />
 
-        <button type="submit">Submit</button>
+        <Button type="submit">Submit</Button>
       </form>
     </div>
   )

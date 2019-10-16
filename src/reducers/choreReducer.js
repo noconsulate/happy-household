@@ -55,7 +55,6 @@ export const editChore = (value, key) => {
 
 export const deleteChore = (key) => {
   return dispatch => {
-    console.log('delete action', key)
     dispatch({
       type: 'DELETE_CHORE',
       data: {key}
