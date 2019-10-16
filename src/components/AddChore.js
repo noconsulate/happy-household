@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {connect} from 'react-redux'
-import fire, {fireDb} from '../firebase'
+import {fireDb} from '../firebase'
 import {createChore} from '../reducers/choreReducer'
 
 const AddChore = ({ chores, createChore }) => {

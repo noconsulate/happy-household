@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import {fireDb} from '../firebase'
-import { setEdit, editChore } from '../reducers/choreReducer'
+import { setEdit, editChore, deleteChore } from '../reducers/choreReducer'
 
-const ChoreList = ({ chores, setEdit, editChore }) => {
+const ChoreList = ({ chores, setEdit, editChore, deleteChore }) => {
   const [editMode, setEditMode] = useState(false)
 
   const handleEditClick = (event, key) => {
@@ -19,9 +19,15 @@ const ChoreList = ({ chores, setEdit, editChore }) => {
     const value = event.target[0].value
     fireDb.ref('chores/' + key).update({
       chore: value
-    })
+    }).catch(error => console.log(error.message))
     editChore(value, key)
     setEditMode(false)
+  }
+
+  const handleDelete = (chore) => {
+    fireDb.ref('chores/' + chore.key).remove()
+      .catch(error => console.log(error.message))
+    deleteChore(chore.key)
   }
 
   const editForm = (chore) => {
@@ -32,12 +38,13 @@ const ChoreList = ({ chores, setEdit, editChore }) => {
           <input type="text" defaultValue={chore.chore}
             name="chore" autoFocus />
           <button type="submit">edit</button>
+          <button onClick={() => handleDelete(chore)}>delete</button>
         </form>
       </div>
     )
   }
 
-  const rows = (chore) => {
+  const rows = () => {
     return (
       <ul>
         {chores.map(chore =>
@@ -69,7 +76,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-  setEdit, editChore
+  setEdit, editChore, deleteChore
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChoreList)

@@ -4,6 +4,7 @@ export const initChores = () => {
   return async dispatch => {
     let arr = []
     const snapshot = await fireDb.ref('chores/').once('value')
+      .catch(error => console.log(error.message))
     snapshot.forEach(child => {
       const item = {
         chore: child.val().chore,
@@ -52,8 +53,18 @@ export const editChore = (value, key) => {
   }
 }
 
+export const deleteChore = (key) => {
+  return dispatch => {
+    console.log('delete action', key)
+    dispatch({
+      type: 'DELETE_CHORE',
+      data: {key}
+    })
+  }
+}
+
 const choreReducer = (state = [], action) => {
-  let key, choreToChange, changedChore
+  let key, choreToChange, changedChore, index
   switch (action.type) {
     case 'INIT_CHORES':
       return action.data
@@ -70,10 +81,8 @@ const choreReducer = (state = [], action) => {
         chore.key !== key ? chore : changedChore  
       )
     case 'EDIT_CHORE':
-      console.log('EDIT_CHORE', action.data.key, action.data.editedChore)
       key = action.data.key
       choreToChange = state.find(chore => chore.key === key)
-      console.log(choreToChange)
       changedChore = {
         chore: action.data.value,
         edit: false,
@@ -83,8 +92,12 @@ const choreReducer = (state = [], action) => {
       return state.map(chore => 
         chore.key !== key ? chore : changedChore
       )
+    case 'DELETE_CHORE': 
+        key = action.data.key
+        index = state.map((e) => e.key).indexOf(key)
+        return state.slice(0, index).concat(state.slice(index + 1))
+
     default:
-      console.log('default')
       return state
   }
 }
