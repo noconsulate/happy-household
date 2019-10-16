@@ -1,36 +1,50 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import {fireDb} from '../firebase'
+import { setEdit, editChore } from '../reducers/choreReducer'
 
-const ChoreList = ({chores}) => {
-  
-  let choresToMap = []
+const ChoreList = ({ chores, setEdit, editChore }) => {
+  const [editMode, setEditMode] = useState(false)
 
-  useEffect(() => {
-    console.log(chores)
-    chores.map(chore => {
-      choresToMap.concat({
-        chore: chore.chore,
-        key: chore.key,
-        edit: false
-      })
-    })
-
-    console.log(choresToMap)
-  }, [])
-
-  const handleEditClick = event => {
+  const handleEditClick = (event, key) => {
     event.preventDefault()
-    console.log('handleEditClick')
+    if (editMode === false) {
+      setEdit(key)
+      setEditMode(true)
+    }
   }
 
-  const rows = () => {
+  const handleEdit = (event, key) => {
+    event.preventDefault()
+    const value = event.target[0].value
+    fireDb.ref('chores/' + key).update({
+      chore: value
+    })
+    editChore(value, key)
+    setEditMode(false)
+  }
+
+  const editForm = (chore) => {
+
+    return (
+      <div>
+        <form onSubmit={(e) => handleEdit(e, chore.key)}>
+          <input type="text" defaultValue={chore.chore}
+            name="chore" autoFocus />
+          <button type="submit">edit</button>
+        </form>
+      </div>
+    )
+  }
+
+  const rows = (chore) => {
     return (
       <ul>
-        {chores.map(chore => 
-          <li key={chore.key} onClick={handleEditClick}>
-            {chore.chore}
-          </li>  
+        {chores.map(chore =>
+          chore.edit === true ?
+            <li key={chore.key}>{editForm(chore)}</li> :
+            <li key={chore.key}
+              onClick={(event) => handleEditClick(event, chore.key)}>{chore.chore}</li>
         )}
       </ul>
     )
@@ -38,7 +52,7 @@ const ChoreList = ({chores}) => {
 
   if (chores === undefined || chores === []) {
     return null
-  } 
+  }
 
   return (
     <div>
@@ -54,4 +68,8 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, null)(ChoreList)
+const mapDispatchToProps = {
+  setEdit, editChore
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChoreList)
