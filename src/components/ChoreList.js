@@ -12,7 +12,7 @@ const ChoreList = ({ chores, setEdit, editChore, deleteChore }) => {
     if (editMode === false) {
       setEdit(key)
       setEditMode(true)
-    }
+    } 
   }
 
   const handleEdit = (event, key) => {
@@ -31,6 +31,11 @@ const ChoreList = ({ chores, setEdit, editChore, deleteChore }) => {
     deleteChore(chore.key)
   }
 
+  const handleCancel = (key) => {
+    setEdit(key)
+    setEditMode(false)
+  }
+
   const editForm = (chore) => {
 
     return (
@@ -38,10 +43,11 @@ const ChoreList = ({ chores, setEdit, editChore, deleteChore }) => {
         <form onSubmit={(e) => handleEdit(e, chore.key)}>
           <Input type="text" defaultValue={chore.chore}
             name="chore" autoFocus />
-          <Button type="submit"
-          disalbeUnderline="true">edit</Button>
+          <Button type="submit">edit</Button>
           <Button 
            onClick={() => handleDelete(chore)}>delete</Button>
+          <Button
+           onClick={() => handleCancel(chore.key)}>cancel</Button>
         </form>
       </div>
     )

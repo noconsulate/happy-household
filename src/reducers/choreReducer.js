@@ -26,7 +26,7 @@ export const createChore = (chore, key) => {
       chore: chore,
       key: key
     }
-    dispatch ({
+    dispatch({
       type: 'NEW_CHORE',
       data: item
     })
@@ -37,7 +37,7 @@ export const setEdit = (key) => {
   return async dispatch => {
     dispatch({
       type: 'SET_EDIT',
-      data: {key}
+      data: { key }
     })
   }
 }
@@ -57,13 +57,13 @@ export const deleteChore = (key) => {
   return dispatch => {
     dispatch({
       type: 'DELETE_CHORE',
-      data: {key}
+      data: { key }
     })
   }
 }
 
 const choreReducer = (state = [], action) => {
-  let key, choreToChange, changedChore, index
+  let key, choreToChange, changedChore, index, newState
   switch (action.type) {
     case 'INIT_CHORES':
       return action.data
@@ -72,12 +72,13 @@ const choreReducer = (state = [], action) => {
     case 'SET_EDIT':
       key = action.data.key
       choreToChange = state.find(chore => chore.key === key)
+     
       changedChore = {
         ...choreToChange,
         edit: !choreToChange.edit
       }
       return state.map(chore =>
-        chore.key !== key ? chore : changedChore  
+        chore.key !== key ? chore : changedChore
       )
     case 'EDIT_CHORE':
       key = action.data.key
@@ -88,13 +89,13 @@ const choreReducer = (state = [], action) => {
         key: key
       }
       console.log(changedChore)
-      return state.map(chore => 
+      return state.map(chore =>
         chore.key !== key ? chore : changedChore
       )
-    case 'DELETE_CHORE': 
-        key = action.data.key
-        index = state.map((e) => e.key).indexOf(key)
-        return state.slice(0, index).concat(state.slice(index + 1))
+    case 'DELETE_CHORE':
+      key = action.data.key
+      index = state.map((e) => e.key).indexOf(key)
+      return state.slice(0, index).concat(state.slice(index + 1))
 
     default:
       return state
