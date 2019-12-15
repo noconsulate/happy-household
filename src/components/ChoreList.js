@@ -9,10 +9,15 @@ const ChoreList = ({ chores, setEdit, editChore, deleteChore }) => {
 
   const handleEditClick = (event, key) => {
     event.preventDefault()
+    console.log('handleEditClick')
     if (editMode === false) {
       setEdit(key)
       setEditMode(true)
     } 
+    else {
+      console.log('editmode true')
+      setEdit(key)
+    }
   }
 
   const handleEdit = (event, key) => {
