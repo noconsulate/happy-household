@@ -15,7 +15,7 @@ function App(props) {
   }, [])
 
   return (
-    <React.Fragment>
+    <div>
     <Button>antd button</Button>
     <button>regular button</button>
 
@@ -25,7 +25,7 @@ function App(props) {
       <AddChore />
       <ChoreList />
     </div>
-    </React.Fragment>
+    </div>
     
   );
 }

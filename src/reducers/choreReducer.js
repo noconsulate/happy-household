@@ -70,10 +70,7 @@ const choreReducer = (state = [], action) => {
     case 'NEW_CHORE':
       return state.concat(action.data)
     case 'SET_EDIT':
-      
-
       choreToChange = state.find(chore => chore.edit)
-      console.log(choreToChange)
       if (choreToChange) {
         key = choreToChange.key
         changedChore = {
@@ -86,7 +83,6 @@ const choreReducer = (state = [], action) => {
       } else {
         newState = state
       }
-      
       key = action.data.key
       choreToChange = state.find(chore => chore.key === key)
       changedChore = {
