@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux'
-import CssBaseline from '@material-ui/core/CssBaseline'
 
 import {Button} from 'antd'
 
+import './App.css'
 import { initChores } from './reducers/choreReducer'
 import AddChore from './components/AddChore'
 import ChoreList from './components/ChoreList'
@@ -15,11 +15,9 @@ function App(props) {
   }, [])
 
   return (
-    <div>
-    <Button>antd button</Button>
-    <button>regular button</button>
-
-      <CssBaseline />
+    <div className="App">
+      <Button>antd button</Button>
+      <button>regular button</button>
       <div>
       <h1>Happy Household</h1>
       <AddChore />
