@@ -13,9 +13,13 @@ function App(props) {
     props.initChores()
   }, [])
 
+  const myStyle = {
+    padding: 10
+  }
+
   return (
     <div>
-      <div>
+      <div style={myStyle}>
         <Header as='h1'>Happy Household</Header>
         <AddChore />
         <ChoreList />

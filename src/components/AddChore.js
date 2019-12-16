@@ -1,29 +1,25 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {connect} from 'react-redux'
 import { Button, Input } from 'semantic-ui-react'
 import {fireDb} from '../firebase'
 import {createChore} from '../reducers/choreReducer'
 
 const AddChore = ({ chores, createChore }) => {
-  const [chore, setChore] = useState('Enter a new chore')
-
   const handleSubmit = event => {
     event.preventDefault()
+    const value = event.target[0].value
     fireDb.ref('chores/').push({
-      chore
+      value
     }).then(res => {
-      createChore(chore, res.key)
+      createChore(value, res.key)
     })
     .catch(exception => console.log(exception))
-    setChore('Enter a new chore')
   }
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <Input value={chore} 
-        onChange={({ target }) => setChore(target.value)} />
-
-        <Button content='submit' primary />
+        <Input placeholder='Add a new chore...'></Input>
+        <Button type='submit'  content='submit' primary />
       </form>
     </div>
   )

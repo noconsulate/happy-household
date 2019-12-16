@@ -75,6 +75,7 @@ const ChoreList = ({ chores, setEdit, editChore, deleteChore }) => {
 
   return (
     <div>
+      <span />
       <Header as='h3'>Chores that need doing</Header>
       {rows()}
     </div>
