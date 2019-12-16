@@ -104,7 +104,6 @@ const choreReducer = (state = [], action) => {
         edit: false,
         key: key
       }
-      console.log(changedChore)
       return state.map(chore =>
         chore.key !== key ? chore : changedChore
       )

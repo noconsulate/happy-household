@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
-import {Button, Input} from '@material-ui/core'
 import {fireDb} from '../firebase'
 import { setEdit, editChore, deleteChore } from '../reducers/choreReducer'
 
@@ -9,13 +8,11 @@ const ChoreList = ({ chores, setEdit, editChore, deleteChore }) => {
 
   const handleEditClick = (event, key) => {
     event.preventDefault()
-    console.log('handleEditClick')
     if (editMode === false) {
       setEdit(key)
       setEditMode(true)
     } 
     else {
-      console.log('editmode true')
       setEdit(key)
     }
   }
@@ -46,13 +43,13 @@ const ChoreList = ({ chores, setEdit, editChore, deleteChore }) => {
     return (
       <div>
         <form onSubmit={(e) => handleEdit(e, chore.key)}>
-          <Input type="text" defaultValue={chore.chore}
+          <input type="text" defaultValue={chore.chore}
             name="chore" autoFocus />
-          <Button type="submit">edit</Button>
-          <Button 
-           onClick={() => handleDelete(chore)}>delete</Button>
-          <Button
-           onClick={() => handleCancel(chore.key)}>cancel</Button>
+          <button type="submit">edit</button>
+          <button 
+           onClick={() => handleDelete(chore)}>delete</button>
+          <button
+           onClick={() => handleCancel(chore.key)}>cancel</button>
         </form>
       </div>
     )

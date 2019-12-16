@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux'
-import CssBaseline from '@material-ui/core/CssBaseline'
 
 import { initChores } from './reducers/choreReducer'
 import AddChore from './components/AddChore'
@@ -13,15 +12,13 @@ function App(props) {
   }, [])
 
   return (
-    <React.Fragment>
-      <CssBaseline />
+    <div>
       <div>
-      <h1>Happy Household</h1>
-      <AddChore />
-      <ChoreList />
+        <h1>Happy Household</h1>
+        <AddChore />
+        <ChoreList />
+      </div>
     </div>
-    </React.Fragment>
-    
   );
 }
 
