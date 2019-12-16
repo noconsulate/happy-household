@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux'
 
-import {Button} from 'antd'
+import { Button } from 'antd'
 
 import './App.css'
 import { initChores } from './reducers/choreReducer'
@@ -15,16 +15,16 @@ function App(props) {
   }, [])
 
   return (
-    <div className="App">
+    <div className="app">
       <Button>antd button</Button>
       <button>regular button</button>
-      <div>
-      <h1>Happy Household</h1>
-      <AddChore />
-      <ChoreList />
+      <div className="app"> 
+        <h1>Happy Household</h1>
+        <AddChore />
+        <ChoreList />
+      </div>
     </div>
-    </div>
-    
+
   );
 }
 
