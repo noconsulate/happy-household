@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
+import { Button, List, Header, Input } from 'semantic-ui-react'
 import {fireDb} from '../firebase'
 import { setEdit, editChore, deleteChore } from '../reducers/choreReducer'
 
@@ -43,13 +44,13 @@ const ChoreList = ({ chores, setEdit, editChore, deleteChore }) => {
     return (
       <div>
         <form onSubmit={(e) => handleEdit(e, chore.key)}>
-          <input type="text" defaultValue={chore.chore}
+          <Input type="text" defaultValue={chore.chore}
             name="chore" autoFocus />
-          <button type="submit">edit</button>
-          <button 
-           onClick={() => handleDelete(chore)}>delete</button>
-          <button
-           onClick={() => handleCancel(chore.key)}>cancel</button>
+          <Button type="submit" primary>edit</Button>
+          <Button 
+           onClick={() => handleDelete(chore)}>delete</Button>
+          <Button
+           onClick={() => handleCancel(chore.key)}>cancel</Button>
         </form>
       </div>
     )
@@ -57,14 +58,14 @@ const ChoreList = ({ chores, setEdit, editChore, deleteChore }) => {
 
   const rows = () => {
     return (
-      <ul>
+      <List bulleted>
         {chores.map(chore =>
           chore.edit === true ?
-            <li key={chore.key}>{editForm(chore)}</li> :
-            <li key={chore.key}
-              onClick={(event) => handleEditClick(event, chore.key)}>{chore.chore}</li>
+            <List.Item key={chore.key}>{editForm(chore)}</List.Item> :
+            <List.Item key={chore.key}
+              onClick={(event) => handleEditClick(event, chore.key)}>{chore.chore}</List.Item>
         )}
-      </ul>
+      </List>
     )
   }
 
@@ -74,7 +75,7 @@ const ChoreList = ({ chores, setEdit, editChore, deleteChore }) => {
 
   return (
     <div>
-      <h3>Chores that need doing</h3>
+      <Header as='h3'>Chores that need doing</Header>
       {rows()}
     </div>
   )

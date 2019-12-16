@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import {connect} from 'react-redux'
+import { Button, Input } from 'semantic-ui-react'
 import {fireDb} from '../firebase'
 import {createChore} from '../reducers/choreReducer'
 
@@ -19,10 +20,10 @@ const AddChore = ({ chores, createChore }) => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <input value={chore} 
+        <Input value={chore} 
         onChange={({ target }) => setChore(target.value)} />
 
-        <button type="submit">Submit</button>
+        <Button content='submit' primary />
       </form>
     </div>
   )
