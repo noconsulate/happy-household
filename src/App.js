@@ -6,6 +6,7 @@ import { Header } from 'semantic-ui-react'
 import { initChores } from './reducers/choreReducer'
 import AddChore from './components/AddChore'
 import ChoreList from './components/ChoreList'
+import Login from './components/Login'
 
 function App(props) {
 
@@ -23,6 +24,8 @@ function App(props) {
         <Header as='h1'>Happy Household</Header>
         <AddChore />
         <ChoreList />
+        <br />
+        <Login />
       </div>
     </div>
   );
