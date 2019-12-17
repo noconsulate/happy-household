@@ -1,15 +1,16 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux'
 import firebase from './firebase'
+import { BrowserRouter as Router, Link, Route } from 'react-router-dom'
 
-import { Header } from 'semantic-ui-react'
+import { Header, Menu } from 'semantic-ui-react'
 
 import { initChores } from './reducers/choreReducer'
 import MyMenu from './components/MyMenu'
 import ChoreView from './components/ChoreView'
 import LoginView from './components/LoginView'
 
-firebase.auth().onAuthStateChanged(function(user) {
+firebase.auth().onAuthStateChanged(function (user) {
   if (user) {
     // User is signed in.
     var displayName = user.displayName;
@@ -27,6 +28,12 @@ firebase.auth().onAuthStateChanged(function(user) {
 });
 
 function App(props) {
+  //temporary menu functions
+  const [activeItem, setActiveItem] = React.useState('chores')
+
+  const handleItemClick = (e, { name }) => {
+    setActiveItem(name)
+  }
 
   useEffect(() => {
     props.initChores()
@@ -37,15 +44,14 @@ function App(props) {
   }
 
   return (
-    <div>
+    <Router>
       <div style={myStyle}>
-        <MyMenu />
         <Header as='h1'>Happy Household</Header>
-        <ChoreView />
-        <br />
-        <LoginView />
+        <MyMenu />
+        <Route path="/chores" render={() => <ChoreView />} />
+        <Route path='/signin' render={() => <LoginView />} />
       </div>
-    </div>
+    </Router>
   );
 }
 
