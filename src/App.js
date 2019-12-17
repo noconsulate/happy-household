@@ -5,9 +5,9 @@ import firebase from './firebase'
 import { Header } from 'semantic-ui-react'
 
 import { initChores } from './reducers/choreReducer'
-import Login from './components/Login'
 import MyMenu from './components/MyMenu'
 import ChoreView from './components/ChoreView'
+import LoginView from './components/LoginView'
 
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
@@ -43,7 +43,7 @@ function App(props) {
         <Header as='h1'>Happy Household</Header>
         <ChoreView />
         <br />
-        <Login />
+        <LoginView />
       </div>
     </div>
   );

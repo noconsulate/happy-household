@@ -1,8 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import { Button, Input } from 'semantic-ui-react'
-import {fireDb} from '../../firebase'
-import {createChore} from '../../reducers/choreReducer'
+import {fireDb} from '../firebase'
+import {createChore} from '../reducers/choreReducer'
 
 const AddChore = ({ chores, createChore }) => {
   const handleSubmit = event => {
