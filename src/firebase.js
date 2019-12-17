@@ -15,4 +15,4 @@ const fire = firebase.initializeApp(firebaseConfig)
 
 export const fireDb = firebase.database()
 
-export default fire
+export default firebase

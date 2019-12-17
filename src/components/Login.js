@@ -1,42 +1,34 @@
 import React from 'react'
 import { Form, Header } from 'semantic-ui-react'
 
-import fire from '../firebase'
-
-fire.auth().onAuthStateChanged(function(user) {
-    if (user) {
-      // User is signed in.
-      var displayName = user.displayName;
-      var email = user.email;
-      var emailVerified = user.emailVerified;
-      var photoURL = user.photoURL;
-      var isAnonymous = user.isAnonymous;
-      var uid = user.uid;
-      var providerData = user.providerData;
-      console.log(user.email + 'is signed in')
-      // ...
-    } else {
-      // User is signed out.
-      console.log(user.email + 'is signed out')
-    }
-  });
+import firebase from '../firebase'
 
 const Login = props => {
     const handleSubmitRegister = e => {
         e.preventDefault()
         const email = e.target[0].value
         const password = e.target[1].value
-        fire.auth().createUserWithEmailAndPassword(email, password)
+        const displayName = e.target[2].value
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+        .then(snap => {
+            const user = firebase.auth().currentUser
+            console.log(user)
+            user.updateProfile({
+                displayName
+            })
+        }).catch(error => {
+            console.log(error.message)
+        })
         .catch(error => {
             console.log('firebase registration error', error.message)
         })
     }
     
-    const handleSubmitLogin = e => {
+    const handleSubmitLogin = async e => {
         e.preventDefault()
         const email = e.target[0].value
         const password = e.target[1].value
-        fire.auth().signInWithEmailAndPassword(email, password)
+        firebase.auth().signInWithEmailAndPassword(email, password)
         .catch(error => {
             console.log('firebase login error', error.message)
         })
@@ -50,6 +42,7 @@ const Login = props => {
                 <Form.Field>
                     <Form.Input label='enter email address' />
                     <Form.Input label='enter password' type='password' />
+                    <Form.Input label='enter your Name' />
                     <Form.Button type='submit'>submit</Form.Button>
                 </Form.Field>
             </Form>

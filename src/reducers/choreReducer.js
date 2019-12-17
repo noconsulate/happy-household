@@ -73,7 +73,6 @@ const choreReducer = (state = [], action) => {
       
 
       choreToChange = state.find(chore => chore.edit)
-      console.log(choreToChange)
       if (choreToChange) {
         key = choreToChange.key
         changedChore = {
