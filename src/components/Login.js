@@ -12,7 +12,6 @@ const Login = props => {
         firebase.auth().createUserWithEmailAndPassword(email, password)
         .then(snap => {
             const user = firebase.auth().currentUser
-            console.log(user)
             user.updateProfile({
                 displayName
             })

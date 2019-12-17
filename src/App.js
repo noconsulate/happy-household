@@ -5,9 +5,9 @@ import firebase from './firebase'
 import { Header } from 'semantic-ui-react'
 
 import { initChores } from './reducers/choreReducer'
-import AddChore from './components/AddChore'
-import ChoreList from './components/ChoreList'
 import Login from './components/Login'
+import MyMenu from './components/MyMenu'
+import ChoreView from './components/ChoreView'
 
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
@@ -39,9 +39,9 @@ function App(props) {
   return (
     <div>
       <div style={myStyle}>
+        <MyMenu />
         <Header as='h1'>Happy Household</Header>
-        <AddChore />
-        <ChoreList />
+        <ChoreView />
         <br />
         <Login />
       </div>

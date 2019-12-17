@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { Button, List, Header, Input } from 'semantic-ui-react'
 import {fireDb} from '../firebase'
-import { setEdit, editChore, deleteChore } from '../reducers/choreReducer'
+import { setEdit, editChore, deleteChore } from '../../reducers/choreReducer'
 
 const ChoreList = ({ chores, setEdit, editChore, deleteChore }) => {
   const [editMode, setEditMode] = useState(false)
