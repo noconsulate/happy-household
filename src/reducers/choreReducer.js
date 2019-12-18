@@ -22,6 +22,7 @@ export const initChores = () => {
 
 export const createChore = (chore, key) => {
   return async dispatch => {
+    console.log('createChore dispatch function')
     const item = {
       chore: chore,
       key: key
@@ -112,6 +113,7 @@ const choreReducer = (state = [], action) => {
       return state.slice(0, index).concat(state.slice(index + 1))
 
     default:
+      console.log('choreReducer default', action.data)
       return state
   }
 }
