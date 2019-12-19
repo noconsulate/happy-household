@@ -1,10 +1,13 @@
 import React from 'react'
 import { Button } from 'semantic-ui-react'
-import { connect } from 'react-router-dom'
+import {connect} from 'react-redux'
+import increment from '../reducers/test'
+
 
 const Test = props => {
   const handleClick = e => {
     console.log('click')
+    increment()
   }
 
   return (
@@ -14,4 +17,8 @@ const Test = props => {
   )
 }
 
-export default Test
+const mapDispatchToProps = {
+  increment
+}
+
+export default connect(null, mapDispatchToProps)(Test)
