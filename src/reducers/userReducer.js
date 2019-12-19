@@ -1,29 +1,27 @@
 import firebase from '../firebase'
 
-export const createUser = (email, password, displayName) => {
-  console.log('createuserAction', email, password, displayName)
+export const createUser = (email, displayName) => {
+  console.log('createuserAction', email, displayName)
   return  dispatch => {
     console.log('createuseraction post return dispatch')
     dispatch({
-      type: 'CREATE_USER',
-      data: { email, password, displayName }
+      type: 'USER',
+      data: { email, displayName }
     })
   }
 }
 
 const defaultState = {
   email: null,
-  password: null,
   displayName: null,
 }
 
 const userReducer = (state = defaultState, action) => {
   switch (action.type) {
-    case 'CREATE_USER':
+    case 'USER':
       console.log('choreReducer create_user', action.data)
       return {
         email: action.data.email,
-        password: action.data.password,
         displayName: action.data.displayName,
       }
     default:  

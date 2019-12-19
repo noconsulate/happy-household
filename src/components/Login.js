@@ -3,9 +3,7 @@ import { connect } from 'react-redux'
 import { Form, Header } from 'semantic-ui-react'
 
 import { createUser } from '../reducers/userReducer'
-
 import firebase from '../firebase'
-
 const Login = props => {
     const handleRegister = e => {
         e.preventDefault()
@@ -19,7 +17,7 @@ const Login = props => {
             user.updateProfile({
                 displayName
             }).catch(error => console.log(error))
-            props.createUser(email, password, displayName)
+            props.createUser(email, displayName)
         }).catch(error => console.log(error.message))
     }
     
@@ -28,6 +26,21 @@ const Login = props => {
         const email = e.email.value
         const password = e.target[1].value
         firebase.auth().signInWithEmailAndPassword(email, password)
+        .catch(error => {
+            console.log('firebase login error', error.message)
+        })
+    }
+
+    const handleLogin = e => {
+        e.preventDefault()
+        const email = e.target[0].value
+        const password = e.target[1].value
+        firebase.auth().signInWithEmailAndPassword(email, password)
+        .then(user => {
+            console.log(user)
+            const displayName = user.user.displayName
+            props.createUser(email, displayName)
+        })
         .catch(error => {
             console.log('firebase login error', error.message)
         })
@@ -52,7 +65,7 @@ const Login = props => {
             <Header as="h3">
                 Login
             </Header>
-            <Form onSubmit={handleSubmitLogin}>
+            <Form onSubmit={handleLogin}>
                 <Form.Field>
                     <Form.Input label='enter email address' />
                     <Form.Input label='enter password' type='password' />
