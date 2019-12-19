@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux'
-import { BrowserRouter as Router, Link, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 
-import { Header, Menu } from 'semantic-ui-react'
+import { Header } from 'semantic-ui-react'
 
 import { initChores } from './reducers/choreReducer'
 import MyMenu from './components/MyMenu'
@@ -10,13 +10,6 @@ import ChoreView from './components/ChoreView'
 import LoginView from './components/LoginView'
 
 function App(props) {
-  //temporary menu functions
-  const [activeItem, setActiveItem] = React.useState('chores')
-
-  const handleItemClick = (e, { name }) => {
-    setActiveItem(name)
-  }
-
   useEffect(() => {
     props.initChores()
   }, [])
@@ -29,7 +22,7 @@ function App(props) {
     <Router>
       <div style={myStyle}>
         <Header as='h1'>Happy Household</Header>
-        <MyMenu />
+        <Route path="/" component={MyMenu} />
         <Route path="/chores" render={() => <ChoreView />} />
         <Route path='/signin' render={() => <LoginView />} />
       </div>
