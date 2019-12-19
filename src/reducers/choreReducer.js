@@ -1,7 +1,9 @@
 import { fireDb } from '../firebase'
 
 export const initChores = () => {
+  console.log('initChores pre return dispatch')
   return async dispatch => {
+    console.log('initchores post return dispatch')
     let arr = []
     const snapshot = await fireDb.ref('chores/').once('value')
       .catch(error => console.log(error.message))
@@ -44,6 +46,7 @@ export const setEdit = (key) => {
 }
 
 export const editChore = (value, key) => {
+  debugger
   return dispatch => {
     dispatch({
       type: 'EDIT_CHORE',

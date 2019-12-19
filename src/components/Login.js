@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Form, Header } from 'semantic-ui-react'
 
-import { createUser, boozer } from '../reducers/userReducer'
+import { createUser } from '../reducers/userReducer'
 
 import firebase from '../firebase'
 
@@ -26,6 +26,7 @@ const Login = props => {
         .catch(error => {
             console.log('firebase registration error', error.message)
         })
+        createUser(email, password, displayName)
     }
     
     const handleSubmitLogin = async e => {
@@ -38,27 +39,8 @@ const Login = props => {
         })
     }
 
-    const handleSubmitRegister1 = e => {
-        e.preventDefault()
-        const email = e.target[0].value
-        const password = e.target[1].value
-        const displayName = e.target[2].value
-        createUser(email, password, displayName)
-        //boozer()
-    }
     return (
         <div>
-            <Header as="h3">
-                Register
-            </Header>
-            <Form onSubmit={handleSubmitRegister1}>
-                <Form.Field>
-                    <Form.Input label='enter email address' />
-                    <Form.Input label='enter password' type='password' />
-                    <Form.Input label='enter your Name' />
-                    <Form.Button type='submit'>submit</Form.Button>
-                </Form.Field>
-            </Form>
             <Header as="h3">
                 Login
             </Header>
@@ -94,7 +76,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-    createUser, boozer
+    createUser
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)
