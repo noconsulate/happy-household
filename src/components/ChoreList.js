@@ -81,13 +81,11 @@ const ChoreList = ({ chores, setEdit, editChore, deleteChore }) => {
     </div>
   )
 }
-
 const mapStateToProps = state => {
   return {
     chores: state.chores
   }
 }
-
 const mapDispatchToProps = {
   setEdit, editChore, deleteChore
 }

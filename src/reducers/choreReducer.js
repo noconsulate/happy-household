@@ -46,7 +46,6 @@ export const setEdit = (key) => {
 }
 
 export const editChore = (value, key) => {
-  debugger
   return dispatch => {
     dispatch({
       type: 'EDIT_CHORE',

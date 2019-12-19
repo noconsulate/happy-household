@@ -1,7 +1,6 @@
 import firebase from '../firebase'
 
 export const createUser = (email, password, displayName) => {
-  debugger
   console.log('createuserAction', email, password, displayName)
   return  dispatch => {
     console.log('createuseraction post return dispatch')

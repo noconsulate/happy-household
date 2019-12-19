@@ -7,9 +7,8 @@ import { createUser } from '../reducers/userReducer'
 import firebase from '../firebase'
 
 const Login = props => {
-    const handleSubmitRegister = e => {
+    const handleRegister = e => {
         e.preventDefault()
-        console.log('register')
         const email = e.target[0].value
         const password = e.target[1].value
         const displayName = e.target[2].value
@@ -19,19 +18,14 @@ const Login = props => {
             const user = firebase.auth().currentUser
             user.updateProfile({
                 displayName
-            })
-        }).catch(error => {
-            console.log(error.message)
-        })
-        .catch(error => {
-            console.log('firebase registration error', error.message)
-        })
-        createUser(email, password, displayName)
+            }).catch(error => console.log(error))
+            props.createUser(email, password, displayName)
+        }).catch(error => console.log(error.message))
     }
     
     const handleSubmitLogin = async e => {
         e.preventDefault()
-        const email = e.target[0].value
+        const email = e.email.value
         const password = e.target[1].value
         firebase.auth().signInWithEmailAndPassword(email, password)
         .catch(error => {
@@ -47,7 +41,7 @@ const Login = props => {
             <Header as="h3">
                 Register
             </Header>
-            <Form onSubmit={handleSubmitRegister}>
+            <Form onSubmit={(e) => handleRegister(e)}>
                 <Form.Field>
                     <Form.Input label='enter email address' />
                     <Form.Input label='enter password' type='password' />
@@ -68,13 +62,11 @@ const Login = props => {
         </div>
     )
 }
-
 const mapStateToProps = state => {
     return {
         user: state.user
     }
 }
-
 const mapDispatchToProps = {
     createUser
 }
