@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
 import { Header } from 'semantic-ui-react'
 
@@ -22,9 +22,11 @@ function App(props) {
     <Router>
       <div style={myStyle}>
         <Header as='h1'>Happy Household</Header>
-        <Route path="/" component={MyMenu} />
-        <Route path="/chores" render={() => <ChoreView />} />
+        <Route component={MyMenu} /> 
+        <Switch>
+        <Route path="/" render={() => <ChoreView />} />
         <Route path='/signin' render={() => <LoginView />} />
+        </Switch>
       </div>
     </Router>
   );
