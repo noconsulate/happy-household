@@ -3,20 +3,23 @@ import { connect } from 'react-redux'
 import { Form, Header } from 'semantic-ui-react'
 
 import { initUser } from '../reducers/userReducer'
+import { addUser } from '../reducers/usersReducer'
 import firebase from '../firebase'
+
 const Login = props => {
     const handleRegister = e => {
         e.preventDefault()
         const email = e.target[0].value
         const password = e.target[1].value
         const displayName = e.target[2].value
+        const user = {email, displayName}
         firebase.auth().createUserWithEmailAndPassword(email, password)
         .then(snap => {
-            const user = firebase.auth().currentUser
-            user.updateProfile({
+            const fireUser = firebase.auth().currentUser
+            fireUser.updateProfile({
                 displayName
             }).catch(error => console.log(error))
-            props.initUser(email, displayName)
+            props.initUser(user)
         }).catch(error => console.log(error.message))
     }
 
@@ -69,7 +72,8 @@ const mapStateToProps = state => {
     }
 }
 const mapDispatchToProps = {
-    initUser
+    initUser,
+    addUser
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)

@@ -15,7 +15,7 @@ const MyMenu = props => {
         <Menu>
             <Menu.Item 
             name='/chores' as={Link} to={'/chores'}
-            active={activeItem === '/chores' || '/'}
+            active={activeItem === '/chores'}
             onClick={handleItemClick}
             >
                 chores

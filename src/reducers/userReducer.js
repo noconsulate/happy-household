@@ -1,10 +1,10 @@
 import firebase from '../firebase'
 
-export const initUser = (email, displayName) => {
+export const initUser = (user) => {
   return  dispatch => {
     dispatch({
       type: 'USER',
-      data: { email, displayName }
+      data: user
     })
   }
 }
