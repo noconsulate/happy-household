@@ -2,7 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Form, Header } from 'semantic-ui-react'
 
-import { createUser } from '../reducers/userReducer'
+import { initUser } from '../reducers/userReducer'
 import firebase from '../firebase'
 const Login = props => {
     const handleRegister = e => {
@@ -16,7 +16,7 @@ const Login = props => {
             user.updateProfile({
                 displayName
             }).catch(error => console.log(error))
-            props.createUser(email, displayName)
+            props.initUser(email, displayName)
         }).catch(error => console.log(error.message))
     }
 
@@ -27,7 +27,7 @@ const Login = props => {
         firebase.auth().signInWithEmailAndPassword(email, password)
         .then(user => {
             const displayName = user.user.displayName
-            props.createUser(email, displayName)
+            props.initUser(email, displayName)
         })
         .catch(error => {
             console.log('firebase login error', error.message)
@@ -69,7 +69,7 @@ const mapStateToProps = state => {
     }
 }
 const mapDispatchToProps = {
-    createUser
+    initUser
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)
