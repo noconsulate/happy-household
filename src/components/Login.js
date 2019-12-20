@@ -20,6 +20,7 @@ const Login = props => {
                 displayName
             }).catch(error => console.log(error))
             props.initUser(user)
+            props.addUser(user)
         }).catch(error => console.log(error.message))
     }
 

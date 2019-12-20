@@ -4,10 +4,12 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 
 import choreReducer from './reducers/choreReducer'
 import userReducer from './reducers/userReducer'
+import usersReducer from './reducers/usersReducer'
 
 const reducer = combineReducers({
   chores: choreReducer,
-  user: userReducer
+  user: userReducer,
+  users: usersReducer
 })
 
  const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)))

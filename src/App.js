@@ -19,16 +19,7 @@ function App(props) {
   }
 
   return (
-    <Router>
-      <div style={myStyle}>
-        <Header as='h1'>Happy Household</Header>
-        <Route component={MyMenu} /> 
-        <Switch>
-        <Route path="/" render={() => <ChoreView />} />
-        <Route path='/signin' render={() => <LoginView />} />
-        </Switch>
-      </div>
-    </Router>
+    <LoginView />
   );
 }
 
