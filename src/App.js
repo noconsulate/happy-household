@@ -19,7 +19,17 @@ function App(props) {
   }
 
   return (
-    <LoginView />
+    <Router>
+      <Route component={MyMenu} />
+      <Switch>
+        <Route path='/signin'>
+          <LoginView />
+        </Route>
+        <Route path='/chores'>
+          <ChoreView />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
