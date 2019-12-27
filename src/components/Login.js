@@ -13,7 +13,8 @@ const Login = props => {
         const email = e.target.email.value
         const password = e.target.password.value
         const displayName = e.target.name.value
-        const user = {email, displayName}
+        const family = e.target.family.name
+        const user = {email, displayName, family}
         firebase.auth().createUserWithEmailAndPassword(email, password)
         .then(snap => {
             const fireUser = firebase.auth().currentUser
@@ -21,7 +22,11 @@ const Login = props => {
                 displayName
             }).catch(error => console.log(error))
             props.initUser(user)
-            props.addUser(user)
+            fireDb.ref('users/').push({ user }).then(res => {
+                props.addUser(user, res.key)
+            })
+            .catch(error => console.log(error.message)
+            )
         }).catch(error => console.log(error.message))
     }
 

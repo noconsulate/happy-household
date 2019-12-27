@@ -1,10 +1,10 @@
 import { fireDb } from '../firebase'
 
-export const addUser = user => {
+export const addUser = (user, key) => {
   return dispatch => {
     dispatch({
       type: 'ADD_USER',
-      data: user
+      data: {...user, key }
     })
   }
 }
