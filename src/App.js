@@ -19,7 +19,8 @@ function App(props) {
   }
 
   return (
-    <Router>
+    <div style={myStyle}>
+      <Router>
       <Route component={MyMenu} />
       <Switch>
         <Route path='/signin'>
@@ -30,7 +31,8 @@ function App(props) {
         </Route>
       </Switch>
     </Router>
-  );
+    </div>
+  )
 }
 
 const mapStateToProps = (state) => {
