@@ -13,7 +13,7 @@ const Login = props => {
         const email = e.target.email.value
         const password = e.target.password.value
         const displayName = e.target.name.value
-        const family = e.target.family.name
+        const family = e.target.family.value
         const user = {email, displayName, family}
         firebase.auth().createUserWithEmailAndPassword(email, password)
         .then(snap => {
@@ -21,8 +21,9 @@ const Login = props => {
             fireUser.updateProfile({
                 displayName
             }).catch(error => console.log(error))
+            user.uid = fireUser.uid
             props.initUser(user)
-            fireDb.ref('users/').push({ user }).then(res => {
+            fireDb.ref('users/').push( user ).then(res => {
                 props.addUser(user, res.key)
             })
             .catch(error => console.log(error.message)
@@ -35,9 +36,11 @@ const Login = props => {
         const email = e.target.email.value
         const password = e.target.password.value
         firebase.auth().signInWithEmailAndPassword(email, password)
-        .then(user => {
-            const displayName = user.user.displayName
-            props.initUser(email, displayName)
+        .then(snap => {
+            const user = firebase.auth().currentUser
+            const uid = user.uid
+            //search users in fireDb for uid, then populate user store
+            
         })
         .catch(error => {
             console.log('firebase login error', error.message)

@@ -21,6 +21,8 @@ const userReducer = (state = defaultState, action) => {
       return {
         email: action.data.email,
         displayName: action.data.displayName,
+        family: action.data.family,
+        uid: action.data.uid,
       }
     default:  
       console.log('user reducer default', action)
