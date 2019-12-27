@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { Form, Header } from 'semantic-ui-react'
 
+import { fireDb } from '../firebase'
 import { initUser } from '../reducers/userReducer'
 import { addUser } from '../reducers/usersReducer'
 import firebase from '../firebase'
@@ -9,9 +10,9 @@ import firebase from '../firebase'
 const Login = props => {
     const handleRegister = e => {
         e.preventDefault()
-        const email = e.target[0].value
-        const password = e.target[1].value
-        const displayName = e.target[2].value
+        const email = e.target.email.value
+        const password = e.target.password.value
+        const displayName = e.target.name.value
         const user = {email, displayName}
         firebase.auth().createUserWithEmailAndPassword(email, password)
         .then(snap => {
@@ -26,8 +27,8 @@ const Login = props => {
 
     const handleLogin = e => {
         e.preventDefault()
-        const email = e.target[0].value
-        const password = e.target[1].value
+        const email = e.target.email.value
+        const password = e.target.password.value
         firebase.auth().signInWithEmailAndPassword(email, password)
         .then(user => {
             const displayName = user.user.displayName
@@ -48,9 +49,11 @@ const Login = props => {
             </Header>
             <Form onSubmit={(e) => handleRegister(e)}>
                 <Form.Field>
-                    <Form.Input label='enter email address' />
-                    <Form.Input label='enter password' type='password' />
-                    <Form.Input label='enter your Name' />
+                    <Form.Input label='enter email address' name='email' />
+                    <Form.Input label='enter password' type='password'
+                    name='password' />
+                    <Form.Input label='enter your name' name='name' />
+                    <Form.Input label='enter your family' name='family' />
                     <Form.Button type='submit'>submit</Form.Button>
                 </Form.Field>
             </Form>
@@ -59,8 +62,9 @@ const Login = props => {
             </Header>
             <Form onSubmit={handleLogin}>
                 <Form.Field>
-                    <Form.Input label='enter email address' />
-                    <Form.Input label='enter password' type='password' />
+                    <Form.Input label='enter email address' name='email'/>
+                    <Form.Input label='enter password' type='password'
+                    name='password' />
                     <Form.Button type='submit'>submit</Form.Button>
                 </Form.Field>
             </Form>

@@ -1,3 +1,5 @@
+import { fireDb } from '../firebase'
+
 export const addUser = user => {
   return dispatch => {
     dispatch({
