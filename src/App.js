@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 
-import firebase from './firebase'
+import firebase, { fireDb } from './firebase'
+import { initUser } from './reducers/userReducer'
 import { initChores } from './reducers/choreReducer'
 import MyMenu from './components/MyMenu'
 import ChoreView from './components/ChoreView'
@@ -10,10 +11,18 @@ import LoginView from './components/LoginView'
 
 function App(props) {
   useEffect(() => {
-    props.initChores(props.user.family)
     firebase.auth().onAuthStateChanged(res => {
       console.log(res)
-      
+      if (res) {
+        const uid = res.uid
+        fireDb.ref('users/' + uid).once('value').then(snap => {
+          const user = snap.val()
+          props.initUser(user)
+        })
+        props.initChores(props.user.family)
+      } else {
+        console.log('no user')
+      }
     })
   }, [])
 
@@ -46,7 +55,8 @@ const mapStateToProps = (state) => {
 }
 
 const mapToDispatch = {
-  initChores
+  initChores,
+  initUser
 }
 
 export default connect(mapStateToProps, mapToDispatch)(App)
