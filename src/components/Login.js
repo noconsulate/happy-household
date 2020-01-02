@@ -39,10 +39,7 @@ const Login = props => {
         firebase.auth().signInWithEmailAndPassword(email, password)
         .then(snap => {
             const uid = firebase.auth().currentUser.uid
-            console.log(uid)
-            
             fireDb.ref('users/' + uid).once('value').then(snap => {
-                console.log(snap.val())
                 const user = snap.val()
                 props.initUser(user)
             })

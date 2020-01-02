@@ -1,9 +1,7 @@
 import { fireDb } from '../firebase'
 
 export const initChores = () => {
-  console.log('initChores pre return dispatch')
   return async dispatch => {
-    console.log('initchores post return dispatch')
     let arr = []
     const snapshot = await fireDb.ref('chores/').once('value')
       .catch(error => console.log(error.message))
@@ -24,7 +22,6 @@ export const initChores = () => {
 
 export const createChore = (chore, key) => {
   return async dispatch => {
-    console.log('createChore dispatch function')
     const item = {
       chore: chore,
       key: key
@@ -115,7 +112,6 @@ const choreReducer = (state = [], action) => {
       return state.slice(0, index).concat(state.slice(index + 1))
 
     default:
-      console.log('choreReducer default', action.data)
       return state
   }
 }

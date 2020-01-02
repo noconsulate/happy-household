@@ -17,7 +17,6 @@ const defaultState = {
 const userReducer = (state = defaultState, action) => {
   switch (action.type) {
     case 'USER':
-      console.log('choreReducer create_user', action.data)
       return {
         email: action.data.email,
         displayName: action.data.displayName,
@@ -25,7 +24,6 @@ const userReducer = (state = defaultState, action) => {
         uid: action.data.uid,
       }
     default:  
-      console.log('user reducer default', action)
       return state
   }
 }
