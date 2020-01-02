@@ -4,7 +4,7 @@ export const addUser = (user, key) => {
   return dispatch => {
     dispatch({
       type: 'ADD_USER',
-      data: {...user, key }
+      data: { user }
     })
   }
 }

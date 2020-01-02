@@ -21,10 +21,11 @@ const Login = props => {
             fireUser.updateProfile({
                 displayName
             }).catch(error => console.log(error))
-            user.uid = fireUser.uid
+            const uid = fireUser.uid
             props.initUser(user)
-            fireDb.ref('users/').push( user ).then(res => {
-                props.addUser(user, res.key)
+            fireDb.ref('users/' + uid).set(user)
+            .then(res => {
+                props.addUser(user)
             })
             .catch(error => console.log(error.message)
             )
@@ -37,9 +38,14 @@ const Login = props => {
         const password = e.target.password.value
         firebase.auth().signInWithEmailAndPassword(email, password)
         .then(snap => {
-            const user = firebase.auth().currentUser
-            const uid = user.uid
-            //search users in fireDb for uid, then populate user store
+            const uid = firebase.auth().currentUser.uid
+            console.log(uid)
+            
+            fireDb.ref('users/' + uid).once('value').then(snap => {
+                console.log(snap.val())
+                const user = snap.val()
+                props.initUser(user)
+            })
             
         })
         .catch(error => {
