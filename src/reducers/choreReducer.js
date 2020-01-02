@@ -1,9 +1,9 @@
 import { fireDb } from '../firebase'
 
-export const initChores = () => {
+export const initChores = (family) => {
   return async dispatch => {
     let arr = []
-    const snapshot = await fireDb.ref('chores/').once('value')
+    const snapshot = await fireDb.ref('chores/' + family).once('value')
       .catch(error => console.log(error.message))
     snapshot.forEach(child => {
       const item = {

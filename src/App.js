@@ -11,7 +11,7 @@ import LoginView from './components/LoginView'
 
 function App(props) {
   useEffect(() => {
-    props.initChores()
+    props.initChores(props.user.family)
   }, [])
 
   const myStyle = {
@@ -37,7 +37,8 @@ function App(props) {
 
 const mapStateToProps = (state) => {
   return {
-    chores: state.chores
+    chores: state.chores,
+    user: state.user,
   }
 }
 

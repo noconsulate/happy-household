@@ -5,6 +5,7 @@ import { Form, Header } from 'semantic-ui-react'
 import { fireDb } from '../firebase'
 import { initUser } from '../reducers/userReducer'
 import { addUser } from '../reducers/usersReducer'
+import { initChores } from '../reducers/choreReducer'
 import firebase from '../firebase'
 
 const Login = props => {
@@ -42,6 +43,7 @@ const Login = props => {
             fireDb.ref('users/' + uid).once('value').then(snap => {
                 const user = snap.val()
                 props.initUser(user)
+                props.initChores(user.family)
             })
             
         })
@@ -89,7 +91,8 @@ const mapStateToProps = state => {
 }
 const mapDispatchToProps = {
     initUser,
-    addUser
+    addUser,
+    initChores
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)

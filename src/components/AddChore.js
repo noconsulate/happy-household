@@ -4,14 +4,14 @@ import { Button, Input } from 'semantic-ui-react'
 import {fireDb} from '../firebase'
 import {createChore} from '../reducers/choreReducer'
 
-const AddChore = ({ chores, createChore, state }) => {
+const AddChore = ({ chores, createChore, user }) => {
   const handleSubmit = event => {
     event.preventDefault()
-    console.log(state)
+    console.log(user)
     
-    const family = state.family
+    const family = user.family
     const value = event.target[0].value
-    fireDb.ref('chores/').push({
+    fireDb.ref('chores/' + family).push({
       value
     }).then(res => {
       createChore(value, res.key)
@@ -30,8 +30,9 @@ const AddChore = ({ chores, createChore, state }) => {
 
 const mapStateToProps = state => {
   return {
-    user: state.user
+    user: state.user,
+    use: state.user,
   }
 }
 
-export default connect(null, {createChore})(AddChore)
+export default connect(mapStateToProps, {createChore})(AddChore)

@@ -83,7 +83,8 @@ const ChoreList = ({ chores, setEdit, editChore, deleteChore }) => {
 }
 const mapStateToProps = state => {
   return {
-    chores: state.chores
+    chores: state.chores,
+    user: state.user
   }
 }
 const mapDispatchToProps = {
