@@ -1,6 +1,9 @@
 import React from 'react'
 import {Link} from 'react-router-dom'
 import { Menu } from 'semantic-ui-react'
+import { connect } from 'react-redux'
+
+import { signOutUser } from '../reducers/userReducer'
 
 const MyMenu = props => {
     var currentPath = props.location.pathname
@@ -8,7 +11,9 @@ const MyMenu = props => {
 
     const handleItemClick = (e, { name })  => {
         setActiveItem(name)
-        
+        if (props.user !== null) {
+            props.signOutUser()
+        }
     }
 
     return (
@@ -25,10 +30,20 @@ const MyMenu = props => {
             active={activeItem === '/signin'}
             onClick={handleItemClick}
             >
-                signin
+                {props.user.email === null ? 'signin' : 'logout'}
             </Menu.Item>
         </Menu>
     )
 }
 
-export default MyMenu
+const mapStateToProps = state => {
+    return {
+        user: state.user
+    }
+}
+
+const mapDispatchToProps = {
+    signOutUser
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(MyMenu)

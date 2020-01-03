@@ -90,7 +90,6 @@ const Login = props => {
                 </Form.Field>
             </Form>
             <br />
-            <Form.Button onClick={handleLogout}>Logout</Form.Button>
         </div>
     )
 }
