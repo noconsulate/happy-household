@@ -12,14 +12,15 @@ import LoginView from './components/LoginView'
 function App(props) {
   useEffect(() => {
     firebase.auth().onAuthStateChanged(res => {
-      console.log(res)
       if (res) {
         const uid = res.uid
+        let family
         fireDb.ref('users/' + uid).once('value').then(snap => {
           const user = snap.val()
+          family = user.family
           props.initUser(user)
+          props.initChores(family)
         })
-        props.initChores(props.user.family)
       } else {
         console.log('no user')
       }

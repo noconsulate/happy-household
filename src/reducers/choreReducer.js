@@ -5,6 +5,8 @@ export const initChores = (family) => {
     let arr = []
     const snapshot = await fireDb.ref('chores/' + family).once('value')
       .catch(error => console.log(error.message))
+      console.log(snapshot)
+      
     snapshot.forEach(child => {
       const item = {
         chore: child.val().chore,
