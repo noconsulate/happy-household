@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Form, Header } from 'semantic-ui-react'
 
 import { fireDb } from '../firebase'
-import { initUser } from '../reducers/userReducer'
+import { initUser, signOutUser } from '../reducers/userReducer'
 import { addUser } from '../reducers/usersReducer'
 import { initChores } from '../reducers/choreReducer'
 import firebase from '../firebase'
@@ -52,6 +52,14 @@ const Login = props => {
         })
     }
 
+    const handleLogout = e => {
+        e.preventDefault()
+        firebase.auth().signOut()
+        .then(snap => {
+            props.signOutUser()
+        })
+    }
+
     return (
         <div>
             <Header as="h3">
@@ -81,6 +89,8 @@ const Login = props => {
                     <Form.Button type='submit'>submit</Form.Button>
                 </Form.Field>
             </Form>
+            <br />
+            <Form.Button onClick={handleLogout}>Logout</Form.Button>
         </div>
     )
 }
@@ -92,7 +102,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
     initUser,
     addUser,
-    initChores
+    initChores,
+    signOutUser
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)

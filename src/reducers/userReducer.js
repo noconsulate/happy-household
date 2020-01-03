@@ -9,6 +9,14 @@ export const initUser = (user) => {
   }
 }
 
+export const signOutUser = () => {
+  return dispatch => {
+    dispatch({
+      type: 'SIGNOUT'
+    })
+  }
+}
+
 const defaultState = {
   email: null,
   displayName: null,
@@ -22,6 +30,13 @@ const userReducer = (state = defaultState, action) => {
         displayName: action.data.displayName,
         family: action.data.family,
         uid: action.data.uid,
+      }
+    case 'SIGNOUT':
+      return {
+        email: null,
+        displayName: null,
+        family: null,
+        uid:  null,
       }
     default:  
       return state
