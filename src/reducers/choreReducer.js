@@ -25,7 +25,8 @@ export const createChore = (chore, key) => {
   return async dispatch => {
     const item = {
       chore: chore,
-      key: key
+      key: key,
+      edit: false,
     }
     dispatch({
       type: 'NEW_CHORE',
@@ -69,10 +70,10 @@ const choreReducer = (state = [], action) => {
     case 'INIT_CHORES':
       return action.data
     case 'NEW_CHORE':
+      console.log(action.data)
+      
       return state.concat(action.data)
     case 'SET_EDIT':
-      
-
       choreToChange = state.find(chore => chore.edit)
       if (choreToChange) {
         key = choreToChange.key

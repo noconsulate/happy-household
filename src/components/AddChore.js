@@ -12,7 +12,7 @@ const AddChore = ({ chores, createChore, user }) => {
     const family = user.family
     const value = event.target[0].value
     fireDb.ref('chores/' + family).push({
-      value
+      chore: value
     }).then(res => {
       createChore(value, res.key)
     })
