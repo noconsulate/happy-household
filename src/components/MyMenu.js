@@ -11,10 +11,17 @@ const MyMenu = props => {
 
     const handleItemClick = (e, { name })  => {
         setActiveItem(name)
-        if (props.user !== null) {
-            props.signOutUser()
-        }
+        console.log(props.user)
+        
     }
+
+    const handleItemClickLogout = (e, { name })  => {
+        setActiveItem(name)
+        console.log(props.user)
+        
+        props.signOutUser()
+    }
+
 
     return (
         <Menu>
@@ -28,7 +35,7 @@ const MyMenu = props => {
             <Menu.Item position='right' as={Link} to={'/signin'}
             name='/signin'
             active={activeItem === '/signin'}
-            onClick={handleItemClick}
+            onClick={props.user ? handleItemClickLogout : handleItemClick}
             >
                 {props.user.email === null ? 'signin' : 'logout'}
             </Menu.Item>
