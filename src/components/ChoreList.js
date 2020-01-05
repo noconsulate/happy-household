@@ -4,7 +4,7 @@ import { Button, List, Header, Input } from 'semantic-ui-react'
 import {fireDb} from '../firebase'
 import { setEdit, editChore, deleteChore } from '../reducers/choreReducer'
 
-const ChoreList = ({ chores, setEdit, editChore, deleteChore }) => {
+const ChoreList = ({ chores, setEdit, editChore, deleteChore, user }) => {
   const [editMode, setEditMode] = useState(false)
 
   const handleEditClick = (event, key) => {
@@ -20,8 +20,10 @@ const ChoreList = ({ chores, setEdit, editChore, deleteChore }) => {
 
   const handleEdit = (event, key) => {
     event.preventDefault()
+    const family = user.family
+    console.log(family)
     const value = event.target[0].value
-    fireDb.ref('chores/' + key).update({
+    fireDb.ref('chores/' + family + '/' + key).update({
       chore: value
     }).catch(error => console.log(error.message))
     editChore(value, key)

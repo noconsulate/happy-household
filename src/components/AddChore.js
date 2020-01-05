@@ -31,7 +31,7 @@ const AddChore = ({ chores, createChore, user }) => {
     fireDb.ref('chores/' + family).push(
       chore
     ).then(res => {
-      createChore(value, res.key)
+      createChore(chore, res.key)
     })
     .catch(exception => console.log(exception))
   }
