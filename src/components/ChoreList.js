@@ -44,7 +44,7 @@ const ChoreList = ({ chores, setEdit, editChore, deleteChore }) => {
     return (
       <div>
         <form onSubmit={(e) => handleEdit(e, chore.key)}>
-          <Input type="text" defaultValue={chore.chore}
+          <Input type="text" defaultValue={chore.value}
             name="chore" autoFocus />
           <Button type="submit" primary>edit</Button>
           <Button 
@@ -63,7 +63,8 @@ const ChoreList = ({ chores, setEdit, editChore, deleteChore }) => {
           chore.edit === true ?
             <List.Item key={chore.key}>{editForm(chore)}</List.Item> :
             <List.Item key={chore.key}
-              onClick={(event) => handleEditClick(event, chore.key)}>{chore.chore}</List.Item>
+              onClick={(event) => handleEditClick(event, chore.key)}>{chore.value} {chore.date }
+            </List.Item>
         )}
       </List>
     )

@@ -7,8 +7,11 @@ export const initChores = (family) => {
       .catch(error => console.log(error.message))
       
     snapshot.forEach(child => {
+      console.log(child.val().value)
+      
       const item = {
-        chore: child.val().chore,
+        value: child.val().value,
+        date: child.val().date,
         key: child.key,
         edit: false
       }
@@ -24,7 +27,8 @@ export const initChores = (family) => {
 export const createChore = (chore, key) => {
   return async dispatch => {
     const item = {
-      chore: chore,
+      chore: chore.value,
+      date: chore.date,
       key: key,
       edit: false,
     }
@@ -70,8 +74,6 @@ const choreReducer = (state = [], action) => {
     case 'INIT_CHORES':
       return action.data
     case 'NEW_CHORE':
-      console.log(action.data)
-      
       return state.concat(action.data)
     case 'SET_EDIT':
       choreToChange = state.find(chore => chore.edit)
