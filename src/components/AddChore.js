@@ -39,7 +39,7 @@ const AddChore = ({ chores, createChore, user }) => {
     <div>
       <form 
         onSubmit={handleSubmit}
-        autocomplete='off'
+        autoComplete='off'
       >
         <Input placeholder='Add a new chore...'></Input>
         <DateInput 
@@ -47,7 +47,7 @@ const AddChore = ({ chores, createChore, user }) => {
           placeholder='To be done by'
           value={date}
           iconPosition='right'
-          closable='true'
+          closable
           dateFormat='MM-DD-YYYY'
           onChange={handleChange}
         />

@@ -45,8 +45,6 @@ const ChoreList = ({ chores, setEdit, editChore, deleteChore, user }) => {
 
   const dateParser = dateString => {
     const dateObj = moment(dateString, 'MM-DD-YYYY' )
-    console.log(dateObj)
-    
     return (
       dateObj.fromNow()
     )
