@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux'
 import { Button, List, Header, Input } from 'semantic-ui-react'
+import moment from 'moment'
+
 import {fireDb} from '../firebase'
 import { setEdit, editChore, deleteChore } from '../reducers/choreReducer'
 
@@ -41,6 +43,15 @@ const ChoreList = ({ chores, setEdit, editChore, deleteChore, user }) => {
     setEditMode(false)
   }
 
+  const dateParser = dateString => {
+    const dateObj = moment(dateString, 'MM-DD-YYYY' )
+    console.log(dateObj)
+    
+    return (
+      dateObj.fromNow()
+    )
+  }
+
   const editForm = (chore) => {
 
     return (
@@ -65,7 +76,7 @@ const ChoreList = ({ chores, setEdit, editChore, deleteChore, user }) => {
           chore.edit === true ?
             <List.Item key={chore.key}>{editForm(chore)}</List.Item> :
             <List.Item key={chore.key}
-              onClick={(event) => handleEditClick(event, chore.key)}>{chore.value} {chore.date }
+              onClick={(event) => handleEditClick(event, chore.key)}>{chore.value} {dateParser(chore.date) }
             </List.Item>
         )}
       </List>
