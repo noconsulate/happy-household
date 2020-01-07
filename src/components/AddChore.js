@@ -21,15 +21,20 @@ const AddChore = ({ chores, createChore, user }) => {
     event.preventDefault()
     const family = user.family
     const value = event.target[0].value
-    const chore = { value, date }
-    let resId
+    let image
+    file ? image = true : image = false
+    const chore = { value, date, image}
+    console.log(chore)
+    
     fireDb.ref('chores/' + family).push(
       chore
     ).then(res => {
       createChore(chore, res.key)
-      const storage = firebase.storage()
-      const storageRef = storage.ref()
-      storageRef.child(family + '/' + res.key).put(file)
+      if (file) {
+        const storage = firebase.storage()
+        const storageRef = storage.ref()
+        storageRef.child(family + '/' + res.key).put(file)
+      }
     })
     .catch(exception => console.log(exception))
 

@@ -11,7 +11,8 @@ export const initChores = (family) => {
         value: child.val().value,
         date: child.val().date,
         key: child.key,
-        edit: false
+        edit: false,
+        image: child.val().image
       }
       arr.push(item)
     })
@@ -29,6 +30,7 @@ export const createChore = (chore, key) => {
       date: chore.date,
       key: key,
       edit: false,
+      image: chore.image
     }
     dispatch({
       type: 'NEW_CHORE',
