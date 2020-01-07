@@ -9,7 +9,6 @@ import MyMenu from './components/MyMenu'
 import ChoreView from './components/ChoreView'
 import LoginView from './components/LoginView'
 
-import Storage from './components/fbstorage'
 function App(props) {
   useEffect(() => {
     firebase.auth().onAuthStateChanged(res => {
@@ -36,7 +35,6 @@ function App(props) {
     <div style={myStyle}>
       <Router>
       <Route component={MyMenu} />
-      <Storage />
       <Switch>
         <Route path='/signin'>
           <LoginView />
