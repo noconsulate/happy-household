@@ -44,7 +44,9 @@ const ChoreList = ({ chores, setEdit, editChore, deleteChore, user }) => {
   }
 
   const dateParser = dateString => {
+    moment.relativeTimeThreshold('h', 1)
     const dateObj = moment(dateString, 'MM-DD-YYYY' )
+    
     return (
       dateObj.fromNow()
     )
