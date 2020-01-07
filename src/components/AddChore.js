@@ -2,13 +2,14 @@ import React from 'react'
 import {connect} from 'react-redux'
 import { Button, Input } from 'semantic-ui-react'
 import { DateInput } from 'semantic-ui-calendar-react'
-import moment from 'moment'
+import firebase from 'firebase'
 
 import {fireDb} from '../firebase'
 import {createChore} from '../reducers/choreReducer'
 
 const AddChore = ({ chores, createChore, user }) => {
   const [date, setDate] = React.useState('')
+  const [file, setFile] = React.useState(null)
 
   const handleChange = (event, {name, value} ) => {
     if (name === 'date') {
@@ -16,24 +17,27 @@ const AddChore = ({ chores, createChore, user }) => {
     }
   }
 
-
   const handleSubmit = event => {
     event.preventDefault()
-
-    console.log(date)
-    const momentObj = moment(date, "MM-DD-YYYY")
-    console.log(momentObj.format())
-    
-
     const family = user.family
     const value = event.target[0].value
     const chore = { value, date }
+    let resId
     fireDb.ref('chores/' + family).push(
       chore
     ).then(res => {
       createChore(chore, res.key)
+      const storage = firebase.storage()
+      const storageRef = storage.ref()
+      storageRef.child(family + '/' + res.key).put(file)
     })
     .catch(exception => console.log(exception))
+
+    
+  }
+
+  const handleImage = event => {
+    setFile(event.target.files[0])
   }
   return (
     <div>
@@ -51,6 +55,7 @@ const AddChore = ({ chores, createChore, user }) => {
           dateFormat='MM-DD-YYYY'
           onChange={handleChange}
         />
+        <Input type="file" name="file" onChange={handleImage} />
         <Button type='submit'  content='submit' primary />
       </form>
     </div>

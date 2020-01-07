@@ -7,8 +7,8 @@ var firebaseConfig = {
   projectId: "happy-household",
   storageBucket: "happy-household.appspot.com",
   messagingSenderId: "839235197768",
-  appId: "1:839235197768:web:62b9c47f5880cbfa16717d"
-
+  appId: "1:839235197768:web:62b9c47f5880cbfa16717d",
+  storageBucket: "gs://happy-household.appspot.com"
 };
 
 const fire = firebase.initializeApp(firebaseConfig)
