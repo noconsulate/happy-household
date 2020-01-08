@@ -25,7 +25,7 @@ function App(props) {
         console.log('no user')
       }
     })
-  }, [props.initChores, props.initUser])
+  }, [props])
 
   const myStyle = {
     padding: 10
