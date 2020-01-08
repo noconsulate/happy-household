@@ -1,13 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import { Button, List, Header, Input } from 'semantic-ui-react'
+import { Button, List, Header, Input, Image } from 'semantic-ui-react'
 import moment from 'moment'
 
-import {fireDb} from '../firebase'
+import firebase, {fireDb} from '../firebase'
 import { setEdit, editChore, deleteChore } from '../reducers/choreReducer'
 
 const ChoreList = ({ chores, setEdit, editChore, deleteChore, user }) => {
   const [editMode, setEditMode] = useState(false)
+  const [imageUrl, setImageUrl] = useState('')
 
   const handleEditClick = (event, key) => {
     event.preventDefault()
@@ -52,8 +53,15 @@ const ChoreList = ({ chores, setEdit, editChore, deleteChore, user }) => {
     )
   }
 
-  const editForm = (chore) => {
+  const getImage = key => {
+    const storage = firebase.storage()
+    const pathReference = storage.ref(user.family + '/' + key)
+    pathReference.getDownloadURL().then(url => {
+      setImageUrl(url)
+    })
+  }
 
+  const editForm = (chore) => {
     return (
       <div>
         <form onSubmit={(e) => handleEdit(e, chore.key)}>
@@ -64,6 +72,8 @@ const ChoreList = ({ chores, setEdit, editChore, deleteChore, user }) => {
            onClick={() => handleDelete(chore)}>delete</Button>
           <Button
            onClick={() => handleCancel(chore.key)}>cancel</Button>
+           <br />
+           <Image onClick={getImage(chore.key)} src={imageUrl} />
         </form>
       </div>
     )

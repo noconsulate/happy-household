@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import { Button, Input } from 'semantic-ui-react'
+import { Button, Input, Image } from 'semantic-ui-react'
 import { DateInput } from 'semantic-ui-calendar-react'
 import firebase from 'firebase'
 
@@ -24,8 +24,6 @@ const AddChore = ({ chores, createChore, user }) => {
     let image
     file ? image = true : image = false
     const chore = { value, date, image}
-    console.log(chore)
-    
     fireDb.ref('chores/' + family).push(
       chore
     ).then(res => {
